@@ -1,4 +1,4 @@
-﻿using EcoIndicators.Models;
+﻿using EcoIndicators.Models.MakStat;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcoIndicators.Data
@@ -12,6 +12,8 @@ namespace EcoIndicators.Data
         public DbSet<SectorCO2> SectorCO2s { get; set; }
         public DbSet<TotalEmissionCO2> TotalEmissionCO2s { get; set; }
         public DbSet<TotalEmissionSO2> TotalEmissionSO2s { get; set; }
+        public DbSet<Water_For_Production> Water_For_Productions { get; set; }
+
 
     }
 }

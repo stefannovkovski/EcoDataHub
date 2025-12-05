@@ -1,4 +1,4 @@
-﻿namespace EcoIndicators.Models
+﻿namespace EcoIndicators.Models.MakStat
 {
     public class TotalEmissionCO2
     {

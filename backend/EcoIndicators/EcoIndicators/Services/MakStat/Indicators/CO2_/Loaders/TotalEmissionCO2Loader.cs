@@ -1,5 +1,6 @@
 ﻿using EcoIndicators.Data;
 using EcoIndicators.Models;
+using EcoIndicators.Models.MakStat;
 using Microsoft.EntityFrameworkCore;
 
 // Вкупна емисија на стакленички гасови, CO2 - еквивалентно (kt)

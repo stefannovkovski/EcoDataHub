@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace EcoIndicators.Models
+namespace EcoIndicators.Models.MakStat
 {
     public class SectorCO2
     {

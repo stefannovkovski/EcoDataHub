@@ -1,16 +1,17 @@
-﻿using EcoIndicators.Data;
+﻿
+using EcoIndicators.Data;
 using EcoIndicators.Models;
 using EcoIndicators.Models.MakStat;
 using Microsoft.EntityFrameworkCore;
 
-namespace EcoIndicators.Services.MakStat.Indicators.CO2.Loaders
+namespace EcoIndicators.Services.MakStat.Indicators.Water.Loaders
 {
-    public class TotalEmissionSO2Loader : ITotalEmissionSO2Loader
+    public class WaterForProductionPurposes : IWaterForProductionPurposes
     {
         private readonly IApiClient _client;
         private readonly AppDbContext _db;
 
-        public TotalEmissionSO2Loader(IApiClient client, AppDbContext db)
+        public WaterForProductionPurposes(IApiClient client, AppDbContext db)
         {
             _client = client;
             _db = db;
@@ -25,24 +26,25 @@ namespace EcoIndicators.Services.MakStat.Indicators.CO2.Loaders
               }
             }";
 
-            string url = "https://makstat.stat.gov.mk:443/PXWeb/api/v1/mk/MakStat/ZivotnaSredina/Vozduh/450_ZivSred_MK_emiSO2_ml.px";
+            string url = "https://makstat.stat.gov.mk:443/PXWeb/api/v1/en/MakStat/ZivotnaSredina/Voda/600_ZivSred_MK_VODKoris_ml.px";
             var apiResponse = await _client.FetchData(url, query);
 
             var records = Transform(apiResponse);
 
             foreach (var r in records)
             {
-                bool exists = await _db.TotalEmissionSO2s.AnyAsync(x => x.Year == r.Year);
-                if (!exists) _db.TotalEmissionSO2s.Add(r);
+                bool exists = await _db.Water_For_Productions.AnyAsync(x => x.Year == r.Year);
+                if (!exists) _db.Water_For_Productions.Add(r);
             }
 
             await _db.SaveChangesAsync();
         }
-        public List<TotalEmissionSO2> Transform(ApiResponse api, int startYear = 2006)
+
+        public List<Water_For_Production> Transform(ApiResponse api, int startYear = 2008)
         {
             if (api?.Data == null || api.Data.Count == 0)
-                return new List<TotalEmissionSO2>();
-            var dict = new Dictionary<int, TotalEmissionSO2>();
+                return new List<Water_For_Production>();
+            var dict = new Dictionary<int, Water_For_Production>();
             foreach (var item in api.Data)
             {
                 if (item.Key.Count < 2 || item.Values.Count == 0)
@@ -53,25 +55,26 @@ namespace EcoIndicators.Services.MakStat.Indicators.CO2.Loaders
 
                 if (!decimal.TryParse(item.Values[0], out decimal value))
                     continue;
-                
+
                 year += startYear;
                 if (!dict.ContainsKey(year))
                 {
-                    dict[year] = new TotalEmissionSO2 { Year = year };
+                    dict[year] = new Water_For_Production { Year = year };
                 }
 
                 var row = dict[year];
 
                 switch (sectorCode)
                 {
-                    case "0": row.Total = value; break;
-                    case "1": row.Combustion_processes = value; break;
-                    case "2": row.Production_processes = value; break;
-                    case "3": row.Transport = value; break;
-                    case "4": row.Other = value; break;
-                }
+                    case "1": row.Total = value; break;
+                    case "2": row.Fresh_water_tech = value; break;
+                    case "3": row.Fresh_drinking = value; break;
+                    case "4": row.Total_recirculation_water = value; break;
+                    case "5": row.Recurculation_fresh_water_added = value; break;
+                    case "6": row.Reused_water_afterPurifying = value; break;
+                    case "7": row.Reused_water_afterCooling = value; break;
+                 }
             }
-
             return dict.Values.ToList();
         }
     }

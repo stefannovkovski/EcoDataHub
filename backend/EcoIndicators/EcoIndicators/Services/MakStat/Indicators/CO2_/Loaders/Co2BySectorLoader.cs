@@ -1,5 +1,6 @@
 ﻿using EcoIndicators.Data;
 using EcoIndicators.Models;
+using EcoIndicators.Models.MakStat;
 using Microsoft.EntityFrameworkCore;
 
 // Проекции на емисија на стакленички гасови по сектори во CO2 -eквивалентно [kt] (Основно сценарио), по години
