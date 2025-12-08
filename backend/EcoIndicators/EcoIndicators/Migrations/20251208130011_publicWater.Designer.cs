@@ -2,6 +2,7 @@
 using EcoIndicators.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EcoIndicators.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251208130011_publicWater")]
+    partial class publicWater
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,99 +23,6 @@ namespace EcoIndicators.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("EcoIndicators.Models.MakStat.Amount_of_collected_municipal_waste", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Glass")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Metal_iron_steel_aluminum")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Mixed_municipal_waste")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Organic_waste_food_leaves")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Other")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Paper")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Plastic")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Rubber")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Textile")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Amount_of_collected_municipal_wastes");
-                });
-
-            modelBuilder.Entity("EcoIndicators.Models.MakStat.Collected_and_generated_municipal_waste", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("East")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Northeast")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Pelagonia")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Polog")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Skopje")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Southeast")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Southwest")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Vardar")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Collected_and_generated_municipal_wastes");
-                });
 
             modelBuilder.Entity("EcoIndicators.Models.MakStat.Public_water_supply", b =>
                 {
@@ -241,62 +151,6 @@ namespace EcoIndicators.Migrations
                     b.ToTable("TotalEmissionSO2s");
                 });
 
-            modelBuilder.Entity("EcoIndicators.Models.MakStat.Waste_by_site_of_generation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Commercial_waste")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Households")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Waste_by_site_of_generations");
-                });
-
-            modelBuilder.Entity("EcoIndicators.Models.MakStat.Waste_water", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("From_households")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("From_other_users")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("From_own_consumption")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("From_the_economy")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Waste_waters");
-                });
-
             modelBuilder.Entity("EcoIndicators.Models.MakStat.Water_For_Production", b =>
                 {
                     b.Property<int>("Id")
@@ -332,47 +186,6 @@ namespace EcoIndicators.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Water_For_Productions");
-                });
-
-            modelBuilder.Entity("EcoIndicators.Models.MakStat.Water_abstracted_by_business_entities", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal?>("AgricultureForestryFishing")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("Construction")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("ElectricityGasSupply")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("ManufacturingIndustry")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("MiningAndQuarrying")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("Total")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("WaterSourceType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("WaterSupplyWasteManagement")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Water_abstracted_by_business_entitiess");
                 });
 
             modelBuilder.Entity("EcoIndicators.Models.MakStat.Water_supplied_by_business_entities", b =>
