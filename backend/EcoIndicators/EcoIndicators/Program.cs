@@ -24,6 +24,11 @@ builder.Services.AddScoped<ICo2Service, Co2Service>();
 builder.Services.AddScoped<ICo2BySectorLoader, Co2BySectorLoader>();
 builder.Services.AddScoped<ITotalEmissionCO2Loader, TotalEmissionCO2Loader>();
 builder.Services.AddScoped<ITotalEmissionSO2Loader,TotalEmissionSO2Loader>();
+<<<<<<< HEAD
+=======
+builder.Services.AddScoped<PulseEcoService>();
+
+>>>>>>> 0e223e9 (added PulseEco API)
 
 builder.Services.AddScoped<IWaterService, WaterService>();
 builder.Services.AddScoped<IWaterForProductionPurposes, WaterForProductionPurposes>();
