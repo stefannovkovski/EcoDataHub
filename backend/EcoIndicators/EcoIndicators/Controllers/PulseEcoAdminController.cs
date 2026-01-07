@@ -5,9 +5,9 @@ namespace EcoIndicators.Controllers {
     [ApiController]
     [Route("admin/pulseeco")]
     public class PulseEcoAdminController : ControllerBase {
-        private readonly PulseEcoService _pulseService;
+        private readonly IPulseEcoService _pulseService;
 
-        public PulseEcoAdminController(PulseEcoService pulseService) {
+        public PulseEcoAdminController(IPulseEcoService pulseService) {
             _pulseService = pulseService;
         }
 
@@ -20,7 +20,7 @@ namespace EcoIndicators.Controllers {
             var to = new DateTime(year, 12, 31);
 
             var data = await _pulseService.GetCityAverageDataAsync(
-                city, metric, from, to, avgLevel: "day"
+                city, metric, from, to, avgLevel: "day","-1"
             );
 
             Console.WriteLine($"Daily averages for {city}, {metric}, {year}:");

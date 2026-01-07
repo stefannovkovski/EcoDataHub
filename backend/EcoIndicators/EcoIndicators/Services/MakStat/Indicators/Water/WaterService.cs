@@ -2,6 +2,7 @@
 using EcoIndicators.Models.MakStat;
 using EcoIndicators.Services.MakStat.Indicators.CO2.Loaders;
 using EcoIndicators.Services.MakStat.Indicators.Water.Loaders;
+using EcoIndicators.Services.MakStat.Indicators.Water.Queries;
 
 namespace EcoIndicators.Services.MakStat.Indicators.Water
 {
@@ -12,13 +13,23 @@ namespace EcoIndicators.Services.MakStat.Indicators.Water
         private readonly IPublic_water_supply _publicWaterSupply;
         private readonly IWater_abstracted_by_business _waterAbstracted;
         private readonly IWasteWater _wasteWater;
-        public WaterService(IWaterForProductionPurposes waterForProductionPurposes, IWaterBusinessPurpose waterBusinessPurpose, IPublic_water_supply publicWaterSupply, IWater_abstracted_by_business waterAbstracted, IWasteWater wasteWater)
-        {
+
+       
+
+        public WaterService(
+            IWaterForProductionPurposes waterForProductionPurposes,
+            IWaterBusinessPurpose waterBusinessPurpose,
+            IPublic_water_supply publicWaterSupply,
+            IWater_abstracted_by_business waterAbstracted,
+            IWasteWater wasteWater
+        
+            ) {
             _waterForProductionPurposes = waterForProductionPurposes;
             _waterBusinessPurpose = waterBusinessPurpose;
             _publicWaterSupply = publicWaterSupply;
             _waterAbstracted = waterAbstracted;
             _wasteWater = wasteWater;
+           
         }
         public async Task SyncAllTables()
         {
