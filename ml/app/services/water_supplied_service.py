@@ -1,0 +1,56 @@
+import pandas as pd
+from pathlib import Path
+import joblib
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_DIR = BASE_DIR / "models/Water_supplied_by_business_entitiess"
+
+def forecast_water_supplied(df, start_year, end_year, columns, standardized=False):
+    try:
+        df = df.sort_values("Year")
+        trained_until = df["Year"].max()
+
+        result = df[(df["Year"] >= start_year) & (df["Year"] <= min(end_year, trained_until))].copy()
+
+        if end_year > trained_until:
+            future_years = pd.DataFrame({"Year": range(trained_until + 1, end_year + 1)})
+            forecasts = {}
+
+            for col in columns:
+                model_path = MODEL_DIR / f"{col}_poly_ridge.pkl"
+
+                if not model_path.exists():
+                    error_msg = f"Model file not found: {model_path}"
+                    raise FileNotFoundError(error_msg)
+
+                model = joblib.load(model_path)
+
+                predictions = model.predict(future_years[["Year"]])
+
+                predictions = np.maximum(predictions, 0)  # Set negative values to 0
+
+                predictions = np.nan_to_num(predictions, nan=0.0, posinf=0.0, neginf=0.0)
+
+                forecasts[col] = predictions
+
+            future_df = future_years.copy()
+            for col in columns:
+                future_df[col] = forecasts[col]
+
+            result = pd.concat([result, future_df], ignore_index=True)
+
+        if standardized:
+            scaler = StandardScaler()
+            result[columns] = scaler.fit_transform(result[columns])
+            result[columns] = result[columns].fillna(0)
+
+        result = result.replace([np.inf, -np.inf], 0)
+        result = result.fillna(0)
+
+        return result
+
+    except Exception as e:
+        import traceback
+        raise

@@ -1,0 +1,20 @@
+{
+  "dataset": "Collected_and_generated_municipal_wastes",
+  "model_type": "RandomForestRegressor",
+  "target_type": "regional",
+  "waste_type": "generated",
+  "features": [
+    "Year"
+  ],
+  "regions": [
+    "Vardar",
+    "East",
+    "Southwest",
+    "Southeast",
+    "Pelagonia",
+    "Polog",
+    "Northeast",
+    "Skopje"
+  ],
+  "trained_until_year": 2024
+}

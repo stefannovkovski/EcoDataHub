@@ -1,0 +1,13 @@
+{
+  "dataset": "Collected_and_generated_municipal_wastes",
+  "model_type": "LinearRegression",
+  "target": "Total",
+  "features": [
+    "Year"
+  ],
+  "trained_until_year": 2024,
+  "models": {
+    "collected": "collected_total_linear.pkl",
+    "generated": "generated_total_linear.pkl"
+  }
+}

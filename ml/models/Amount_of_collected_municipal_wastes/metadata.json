@@ -1,0 +1,30 @@
+{
+  "dataset": "Amount_of_collected_municipal_wastes",
+  "model_type": "LinearRegression",
+  "lag": 1,
+  "trained_until_year": 2024,
+  "features": [
+    "Total_lag1",
+    "Paper_lag1",
+    "Glass_lag1",
+    "Plastic_lag1",
+    "Metal_iron_steel_aluminum_lag1",
+    "Organic_waste_food_leaves_lag1",
+    "Textile_lag1",
+    "Rubber_lag1",
+    "Mixed_municipal_waste_lag1",
+    "Other_lag1"
+  ],
+  "targets": [
+    "Total",
+    "Paper",
+    "Glass",
+    "Plastic",
+    "Metal_iron_steel_aluminum",
+    "Organic_waste_food_leaves",
+    "Textile",
+    "Rubber",
+    "Mixed_municipal_waste",
+    "Other"
+  ]
+}
